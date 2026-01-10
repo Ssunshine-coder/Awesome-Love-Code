@@ -20,11 +20,12 @@
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
 
     <style>
-        /* --- CSS 样式调整 --- */
+        /* --- CSS 样式调整区域 --- */
         
-        /* 1. 全局字体：华文行楷 */
+        /* 1. 全局字体：统一使用 华文行楷 (STXingkai) */
+        /* 删除了所有 Google Fonts 引用，使用系统自带，最稳妥 */
         body, div, span, p {
-            font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", cursive, serif;
+            font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", cursive, serif !important;
         }
 
         p {
@@ -32,18 +33,20 @@
         }
 
         #code {
-            /* 正文保持 24px，因为在左边，空间大，大一点好看 */
+            /* 正文字体大小：24px */
             font-size: 24px; 
             line-height: 1.8; 
             display: none;
             color: #333;
             
+            /* 布局限制 */
             width: 480px;
             height: 540px;
             overflow-y: auto;
             padding-right: 15px;
             margin-top: 10px;
             
+            /* 禁止 CSS 平滑滚动，交由 JS 控制 */
             scroll-behavior: auto !important;
         }
 
@@ -65,34 +68,43 @@
             font-size: 24px;
         }
 
+        /* 重点强调样式 */
         .highlight {
             color: #ff0000; 
             font-weight: bold; 
             font-size: 1.1em;
         }
 
-        /* --- 右下角计时器 (完美复刻不挡树版) --- */
+        /* --- 计时器位置与样式优化 --- */
         #clock-box {
             position: absolute;
-            bottom: 10px;  /* 紧贴底部 */
-            right: 10px;   /* 紧贴右侧 */
+            /* 【核心位置修正】 */
+            /* 紧贴底部和右侧，最大程度避开树干 */
+            bottom: 10px; 
+            right: 10px; 
+            text-align: right;
             color: #666;
             z-index: 999;
-            text-align: right;
+            /* 确保字体继承 */
+            font-family: "STXingkai", "华文行楷", cursive !important;
+        }
+        
+        #clock-box * {
+            font-family: "STXingkai", "华文行楷", cursive !important;
         }
 
         /* 第一行文字 */
         #clock-box span.label {
-            font-size: 20px; /* 调回 20px，防止太宽挡树 */
-            display: block;
-            margin-bottom: 8px;
-        }
-        
-        /* 第二行数字 */
-        #clock .digit {
-            /* 行书的数字偏小，设置 22px 可以在视觉上和 20px 的汉字看起来一样大 */
+            /* 统一字号 22px */
             font-size: 22px; 
-            font-family: "STXingkai", "华文行楷", cursive; 
+            display: block;
+            margin-bottom: 5px;
+        }
+        /* 第二行时间数字 */
+        #clock .digit {
+            /* 统一字号 22px，保持视觉一致 */
+            font-size: 22px; 
+            font-weight: bold; 
         }
 
         /* 滚动条美化 */
@@ -210,13 +222,17 @@
                         // 1. 遇到标签
                         if (current == '<') {
                             // 检测是不是红色加粗标签的开始 <span class="highlight">
+                            // 注意：字符长度要精准匹配
                             if (str.substr(progress, 24) === '<span class="highlight">') {
+                                // 找到标签结束处 '>'
                                 var closeIndex = str.indexOf('>', progress);
-                                var tag = str.substring(progress, closeIndex + 1);
-                                $ele.html(str.substring(0, progress) + tag); // 渲染标签
+                                var tag = str.substring(progress, closeIndex + 1); // <span class="highlight">
+                                
+                                // 先渲染标签头（此时内容还没出来，所以看起来没变化）
+                                $ele.html($ele.html() + tag); 
                                 progress = closeIndex + 1;
                                 
-                                // 【关键】停顿 3 秒
+                                // 【关键】在这里停顿3秒，然后再继续打印文字
                                 setTimeout(type, 3000);
                                 return;
                             }
@@ -228,7 +244,7 @@
                             type(); 
                             return; 
                         } 
-                        // 2. 遇到空格或换行：瞬间跳过
+                        // 2. 遇到空格或换行：瞬间跳过（保持开头丝滑）
                         else if (current === '\n' || current === ' ') {
                             while(progress < str.length && (str.substr(progress, 1) === '\n' || str.substr(progress, 1) === ' ')) {
                                 progress++;
