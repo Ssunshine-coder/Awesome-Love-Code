@@ -9,9 +9,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
 
     <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
     
@@ -26,11 +24,11 @@
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
 
     <style>
-        /* --- CSS 样式调整区域 --- */
+        /* --- CSS 样式调整 --- */
         
-        /* 全局默认字体：优先使用优雅的 Dancing Script */
+        /* 1. 正文全局默认：站酷小薇体 (清秀好认) */
         body, div, span, p {
-            font-family: "Dancing Script", "KaiTi", "STKaiti", "Microsoft YaHei", serif;
+            font-family: "ZCOOL XiaoWei", "KaiTi", "STKaiti", "Microsoft YaHei", serif;
         }
 
         p {
@@ -38,31 +36,27 @@
         }
 
         #code {
-            /* 字体大小调整为 24px，确保清晰易读 */
             font-size: 24px; 
             line-height: 1.8; 
             display: none;
             color: #333;
-            font-weight: 500; /* 稍微加粗一点点，更有质感 */
+            font-weight: 400; 
             
-            /* 布局限制 */
             width: 460px;
             height: 540px;
             overflow-y: auto;
             padding-right: 15px;
             margin-top: 10px;
             
-            /* 禁止 CSS 平滑滚动，交由 JS 控制以保证丝滑 */
+            /* 禁止CSS平滑滚动，防止与JS冲突 */
             scroll-behavior: auto !important;
         }
 
-        /* 段落排版 */
         #code p {
             text-indent: 2em;
             margin-bottom: 1.2em;
         }
         
-        /* 标题和日期 */
         #code p.say_title {
             text-indent: 0;
             font-size: 28px; 
@@ -76,14 +70,13 @@
             font-size: 22px;
         }
 
-        /* 重点强调样式 */
         .highlight {
             color: #ff0000; 
             font-weight: bold; 
-            font-size: 1.1em;
+            font-size: 1.15em;
         }
 
-        /* --- 计时器位置与特定字体 --- */
+        /* --- 【关键修复】右下角字体锁死 --- */
         #clock-box {
             position: absolute;
             bottom: 15px;
@@ -91,23 +84,26 @@
             text-align: right;
             color: #666;
             z-index: 999;
-            /* 【关键】强制计时器区域使用你喜欢的“志莽行书” */
+            /* 强制容器用狂野字体 */
             font-family: "Zhi Mang Xing", cursive !important;
         }
         
-        /* “我与你相识的” 文字大小 */
+        /* 【核弹级修复】强制 #clock-box 下的所有子元素全部使用狂野字体 */
+        #clock-box * {
+            font-family: "Zhi Mang Xing", cursive !important;
+        }
+
         #clock-box span.label {
             font-size: 20px;
             display: block;
             margin-bottom: 5px;
         }
-        /* 数字样式 */
+        
         #clock .digit {
-            font-size: 32px; /* 数字稍微大一点，更突出 */
-            /* 继承父级的志莽行书 */
+            font-size: 32px;
         }
 
-        /* --- 滚动条美化 --- */
+        /* 滚动条美化 */
         #code::-webkit-scrollbar {
             width: 6px; 
         }
@@ -209,40 +205,62 @@
     <script>
         (function () {
             
-            // --- 【打字机函数】 ---
+            // --- 【打字机终极优化版】 ---
+            // 修复了开头卡顿、字体跳动、滚动抽搐的所有问题
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
                     $ele.html('');
-                    
                     var codeDiv = document.getElementById('code');
 
                     function type() {
                         var current = str.substr(progress, 1);
                         
+                        // 1. 跳过标签
                         if (current == '<') {
+                            // 检测情感停顿标记
+                            if (str.substr(progress, 12) === '') {
+                                progress += 12; 
+                                setTimeout(type, 3000); // 停顿3秒
+                                return;
+                            }
+
+                            // 快速跳过普通HTML标签
                             var closeIndex = str.indexOf('>', progress);
                             var tag = str.substring(progress, closeIndex + 1);
                             progress = closeIndex + 1;
                             $ele.html(str.substring(0, progress));
                             
-                            // 【情感停顿】检测到重点句子的结束标签 </span>
-                            if (tag === '</span>') {
-                                setTimeout(type, 3000); // 暂停 3 秒
-                                return;
+                            // 递归：不等待，立即处理下一个字符
+                            type();
+                            return; 
+                        } 
+                        // 2. 【关键】跳过不可见字符（空格、换行）
+                        // 这里使用 while 循环一次性跳过连续的空白，不进行任何渲染
+                        // 这彻底解决了开头的卡顿问题
+                        else if (current === '\n' || current === ' ') {
+                            while(progress < str.length && (str.substr(progress, 1) === '\n' || str.substr(progress, 1) === ' ')) {
+                                progress++;
                             }
-                        } else {
+                            // 跳完所有空白后，立即处理下一个有效字符，不等待，不渲染
+                            if(progress < str.length) {
+                                type();
+                            }
+                            return;
+                        }
+                        // 3. 正常文字
+                        else {
                             progress++;
                             $ele.html(str.substring(0, progress));
                         }
 
-                        // 丝滑滚动逻辑
+                        // 4. 滚动逻辑
                         if (codeDiv) {
                             codeDiv.scrollTop = codeDiv.scrollHeight;
                         }
 
                         if (progress < str.length) {
-                            setTimeout(type, 225); // 打字速度 225ms
+                            setTimeout(type, 225); // 正常打字速度
                         }
                     }
                     
