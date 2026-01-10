@@ -69,20 +69,21 @@
             font-size: 1.1em;
         }
 
-        /* 【优化】计时器位置 - 确保在最底部且不被树遮挡 */
+        /* 【优化】计时器位置 - 紧贴右下角 */
         #clock-box {
-            position: fixed;  /* 改为fixed确保始终在视口底部 */
-            bottom: 5px;      /* 距离底部5px */
-            right: 15px;      /* 距离右边15px */
+            position: fixed;  
+            bottom: 3px;      /* 紧贴底部 */
+            right: 5px;       /* 紧贴右边 */
             text-align: right;
             color: #666;
-            z-index: 9999;    /* 提高层级确保在最上层 */
+            z-index: 9999;    
             font-family: "Zhi Mang Xing", cursive !important;
             width: auto;
             pointer-events: none;
-            background: rgba(255, 255, 255, 0.7); /* 添加半透明背景 */
-            padding: 5px 10px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.85); 
+            padding: 8px 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
         }
         
         #clock-box * {
