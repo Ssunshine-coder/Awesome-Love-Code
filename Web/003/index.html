@@ -22,7 +22,7 @@
     <style>
         /* --- CSS 样式调整 --- */
         
-        /* 全局字体：华文行楷 */
+        /* 1. 全局字体：全部统一为 华文行楷 */
         body, div, span, p {
             font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", cursive, serif;
         }
@@ -68,28 +68,29 @@
             font-size: 1.1em;
         }
 
-        /* --- 计时器位置与统一字号 --- */
+        /* --- 右下角计时器：视觉大小统一优化 --- */
         #clock-box {
             position: absolute;
-            bottom: 5px; 
-            right: 5px; 
+            bottom: 10px; /* 稍微留一点底边距 */
+            right: 20px;  /* 靠右，不遮挡树干 */
             text-align: right;
             color: #666;
             z-index: 999;
         }
 
-        /* 【关键】统一字号为 24px 并加粗 */
+        /* 第一行文字：汉字 */
         #clock-box span.label {
             font-size: 24px; 
-            font-weight: bold;
             display: block;
             margin-bottom: 5px;
         }
+        
+        /* 第二行数字：手动加大一点点，为了视觉上和汉字一样大 */
         #clock .digit {
-            font-size: 24px; 
-            font-weight: bold;
+            font-size: 28px; /* 故意比汉字大4px，视觉上就平衡了 */
+            font-weight: normal; /* 行书自带笔锋，不用太粗 */
         }
-
+        
         /* 滚动条美化 */
         #code::-webkit-scrollbar {
             width: 6px; 
@@ -192,7 +193,7 @@
     <script>
         (function () {
             
-            // --- 【JS核心逻辑：流畅打字 + 重点前停顿】 ---
+            // --- 【打字机逻辑：支持“见红就停”】 ---
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
@@ -202,27 +203,29 @@
                     function type() {
                         var current = str.substr(progress, 1);
                         
-                        // 1. 检测 HTML 标签
+                        // 1. 遇到标签
                         if (current == '<') {
-                            // 检查是否是高亮起始标签 <span class="highlight"> (长度24)
-                            // 逻辑：遇到高亮标签 -> 先渲染标签(不可见) -> 停顿3秒 -> 再继续打印内容
+                            // 检测是不是红色加粗标签的开始 <span class="highlight">
+                            // 注意：这里长度要匹配你的标签写法
                             if (str.substr(progress, 24) === '<span class="highlight">') {
-                                // 找到标签结束位置
+                                // 找到标签结束处
                                 var closeIndex = str.indexOf('>', progress);
                                 var tag = str.substring(progress, closeIndex + 1);
-                                progress = closeIndex + 1;
-                                $ele.html(str.substring(0, progress));
                                 
-                                // 【关键】在这里停顿3秒，然后再继续
+                                // 先把标签印出来（此时内容为空，看不见）
+                                $ele.html($ele.html() + tag); 
+                                progress = closeIndex + 1;
+                                
+                                // 【关键】在这里停顿3秒，然后再继续打字
                                 setTimeout(type, 3000);
                                 return;
                             }
 
-                            // 普通标签（如</p>），快速跳过
+                            // 普通标签（如</p>, </span>），快速跳过
                             var closeIndex = str.indexOf('>', progress);
                             progress = closeIndex + 1;
                             $ele.html(str.substring(0, progress));
-                            type(); // 不停顿
+                            type(); 
                             return; 
                         } 
                         // 2. 遇到空格或换行：瞬间跳过
@@ -247,7 +250,7 @@
                         }
 
                         if (progress < str.length) {
-                            setTimeout(type, 225); // 基础打字速度
+                            setTimeout(type, 225); 
                         }
                     }
                     
