@@ -26,7 +26,7 @@
     <style>
         /* --- CSS 样式调整区域 --- */
         
-        /* 1. 全局应用“马善政”书法字体，如果没有网则回退到楷体 */
+        /* 1. 全局应用“马善政”书法字体 */
         body, div, span, p {
             font-family: "Ma Shan Zheng", "KaiTi", "STKaiti", "Microsoft YaHei", serif;
         }
@@ -36,9 +36,9 @@
         }
 
         #code {
-            /* 字体大小微调，书法体通常需要大一点才好看 */
+            /* 字体大小：22px 配合书法体非常合适 */
             font-size: 22px; 
-            line-height: 1.8; /* 增加行间距，让书法字不拥挤 */
+            line-height: 1.8; 
             display: none;
             color: #333;
             
@@ -49,19 +49,21 @@
             padding-right: 15px;
             margin-top: 10px;
             
-            /* 开启平滑滚动 */
-            scroll-behavior: smooth;
+            /* 【BUG修复】: 移除了 scroll-behavior: smooth; 
+               这是为了防止 JS 自动滚动时产生“回弹”或“抖动” 
+            */
         }
 
-        /* 段落排版 */
+        /* 段落排版：首行缩进 + 段间距 */
         #code p {
             text-indent: 2em;
             margin-bottom: 1em;
         }
         
+        /* 标题和日期特殊处理 */
         #code p.say_title {
             text-indent: 0;
-            font-size: 24px; /* 标题大一点 */
+            font-size: 24px; 
             margin-bottom: 20px;
         }
         #code p.say_date {
@@ -73,31 +75,29 @@
         /* 重点强调样式 */
         .highlight {
             color: #ff0000; 
-            font-weight: bold; /* 书法体加粗效果可能不明显，靠颜色区分 */
+            font-weight: bold; 
             font-size: 1.1em;
         }
 
-        /* --- 关键修改：计时器位置 --- */
-        /* 移到【左下角】，彻底解决挡树问题，且视觉更平衡 */
+        /* --- 计时器位置：左下角 --- */
         #clock-box {
             position: absolute;
             bottom: 20px;
-            left: 60px;  /* 放在左边 */
-            right: auto; /* 清除右边定位 */
+            left: 60px;  /* 左侧布局，不挡树 */
+            right: auto; 
             font-size: 16px;
-            text-align: left; /* 文字左对齐 */
+            text-align: left;
             color: #666;
             z-index: 999;
         }
-        /* 计时器数字样式 */
         #clock .digit {
-            font-size: 28px; /* 数字大一点 */
-            font-family: "Ma Shan Zheng", cursive; /* 数字也用书法体 */
+            font-size: 28px;
+            font-family: "Ma Shan Zheng", cursive; 
         }
 
         /* --- 滚动条美化 --- */
         #code::-webkit-scrollbar {
-            width: 6px; /* 变细一点，更精致 */
+            width: 6px; 
         }
         #code::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.5); 
@@ -191,26 +191,27 @@
     <script>
         (function () {
             
-            // --- 【大招：重写打字机函数】 ---
-            // 解决：1. 速度调节 (改为 150ms) 2. 自动跟随滚动 (每打一个字就滚到底)
+            // --- 【BUG 修复版打字机函数】 ---
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
                     $ele.html('');
+                    
+                    // 【优化点1】: 调整为 100ms，既有书写感，又不会太慢
                     var timer = setInterval(function() {
                         var current = str.substr(progress, 1);
                         if (current == '<') {
-                            // 如果遇到标签，直接找到闭合处
+                            // 遇到标签瞬间跳过，不展示标签源码
                             progress = str.indexOf('>', progress) + 1;
                         } else {
                             progress++;
                         }
                         
-                        // 打印内容
-                        $ele.html(str.substring(0, progress) + (progress & 1 ? '_' : ''));
+                        // 【优化点2】: 去掉了末尾的 "_" 光标，画面更干净
+                        $ele.html(str.substring(0, progress));
                         
-                        // 【关键逻辑】自动跟随滚动
-                        // 获取DOM元素直接操作 scrollTop
+                        // 【优化点3】: 自动滚动逻辑
+                        // 删除了 CSS 的 scroll-behavior: smooth 后，这里的滚动将非常稳定
                         var codeDiv = document.getElementById('code');
                         if (codeDiv) {
                             codeDiv.scrollTop = codeDiv.scrollHeight;
@@ -220,7 +221,7 @@
                         if (progress >= str.length) {
                             clearInterval(timer);
                         }
-                    }, 150); // 【这里调节速度】：150 是 150毫秒，数字越大越慢
+                    }, 100); 
                 });
                 return this;
             };
