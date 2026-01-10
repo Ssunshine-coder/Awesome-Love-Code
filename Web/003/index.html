@@ -7,9 +7,11 @@
     <meta name="language" content="zh-CN">
     <meta name="title" content="小孙同学">
     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
 
     <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
     
@@ -26,9 +28,9 @@
     <style>
         /* --- CSS 样式调整 --- */
         
-        /* 1. 正文全局默认：站酷小薇体 (清秀好认) */
+        /* 1. 正文全局默认：优先使用 霞鹜文楷 */
         body, div, span, p {
-            font-family: "ZCOOL XiaoWei", "KaiTi", "STKaiti", "Microsoft YaHei", serif;
+            font-family: "LXGW WenKai", "KaiTi", "STKaiti", "Microsoft YaHei", serif;
         }
 
         p {
@@ -48,7 +50,7 @@
             padding-right: 15px;
             margin-top: 10px;
             
-            /* 禁止CSS平滑滚动，防止与JS冲突 */
+            /* 禁止CSS平滑滚动，交由JS控制以保证丝滑 */
             scroll-behavior: auto !important;
         }
 
@@ -76,21 +78,27 @@
             font-size: 1.15em;
         }
 
-        /* --- 【关键修复】右下角字体锁死 --- */
+        /* --- 【关键修复】右下角位置与颜值提升 --- */
         #clock-box {
             position: absolute;
             bottom: 15px;
-            right: 20px;
-            text-align: right;
-            color: #666;
+            right: 5px; /* 极度靠右，利用空隙 */
+            text-align: right; /* 强制右对齐 */
             z-index: 999;
-            /* 强制容器用狂野字体 */
+            
+            /* 颜值提升：改成白色文字，加粉色发光描边，确保清晰又好看 */
+            color: #ffffff; 
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.8); 
+            
+            /* 强制使用志莽行书 */
             font-family: "Zhi Mang Xing", cursive !important;
         }
         
-        /* 【核弹级修复】强制 #clock-box 下的所有子元素全部使用狂野字体 */
+        /* 强制内部所有元素继承字体和颜色设置 */
         #clock-box * {
             font-family: "Zhi Mang Xing", cursive !important;
+            color: inherit; /* 继承父级的白色 */
+            text-shadow: inherit; /* 继承描边 */
         }
 
         #clock-box span.label {
@@ -206,7 +214,7 @@
         (function () {
             
             // --- 【打字机终极优化版】 ---
-            // 修复了开头卡顿、字体跳动、滚动抽搐的所有问题
+            // 包含：丝滑无卡顿开头、智能停顿、稳定滚动
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
@@ -227,7 +235,6 @@
 
                             // 快速跳过普通HTML标签
                             var closeIndex = str.indexOf('>', progress);
-                            var tag = str.substring(progress, closeIndex + 1);
                             progress = closeIndex + 1;
                             $ele.html(str.substring(0, progress));
                             
@@ -235,14 +242,14 @@
                             type();
                             return; 
                         } 
-                        // 2. 【关键】跳过不可见字符（空格、换行）
-                        // 这里使用 while 循环一次性跳过连续的空白，不进行任何渲染
-                        // 这彻底解决了开头的卡顿问题
+                        // 2. 【关键】跳过开头的不可见字符（空格、换行）
+                        // 使用 while 循环一次性跳过连续的空白，不进行任何渲染
+                        // 这彻底解决了开头的卡顿问题，实现秒开
                         else if (current === '\n' || current === ' ') {
                             while(progress < str.length && (str.substr(progress, 1) === '\n' || str.substr(progress, 1) === ' ')) {
                                 progress++;
                             }
-                            // 跳完所有空白后，立即处理下一个有效字符，不等待，不渲染
+                            // 跳完所有空白后，立即处理下一个有效字符，不等待
                             if(progress < str.length) {
                                 type();
                             }
@@ -254,7 +261,7 @@
                             $ele.html(str.substring(0, progress));
                         }
 
-                        // 4. 滚动逻辑
+                        // 4. 稳定滚动逻辑
                         if (codeDiv) {
                             codeDiv.scrollTop = codeDiv.scrollHeight;
                         }
