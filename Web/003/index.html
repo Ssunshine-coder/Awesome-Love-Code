@@ -7,12 +7,6 @@
     <meta name="language" content="zh-CN">
     <meta name="title" content="小孙同学">
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
-
     <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
     
     <script type="text/javascript" src="./Love_files/jquery.min.js"></script>
@@ -26,11 +20,11 @@
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
 
     <style>
-        /* --- CSS 样式调整 --- */
+        /* --- CSS 样式调整区域 --- */
         
-        /* 1. 正文全局默认：优先使用 霞鹜文楷 */
+        /* 1. 全局字体：回归 微软雅黑 */
         body, div, span, p {
-            font-family: "LXGW WenKai", "KaiTi", "STKaiti", "Microsoft YaHei", serif;
+            font-family: "Microsoft YaHei", "Heiti SC", "SimHei", sans-serif;
         }
 
         p {
@@ -38,30 +32,33 @@
         }
 
         #code {
-            font-size: 24px; 
+            /* 字体大小：20px，微软雅黑这个大小阅读很舒服 */
+            font-size: 20px; 
             line-height: 1.8; 
             display: none;
             color: #333;
-            font-weight: 400; 
             
+            /* 布局限制 */
             width: 460px;
             height: 540px;
             overflow-y: auto;
             padding-right: 15px;
             margin-top: 10px;
             
-            /* 禁止CSS平滑滚动，交由JS控制以保证丝滑 */
+            /* 禁止 CSS 平滑滚动，交由 JS 控制 */
             scroll-behavior: auto !important;
         }
 
+        /* 段落排版 */
         #code p {
             text-indent: 2em;
             margin-bottom: 1.2em;
         }
         
+        /* 标题和日期 */
         #code p.say_title {
             text-indent: 0;
-            font-size: 28px; 
+            font-size: 24px; 
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -69,46 +66,39 @@
             text-indent: 0;
             text-align: right;
             margin-top: 30px;
-            font-size: 22px;
+            font-size: 20px;
         }
 
+        /* 重点强调样式 */
         .highlight {
             color: #ff0000; 
             font-weight: bold; 
-            font-size: 1.15em;
+            font-size: 1.1em;
         }
 
-        /* --- 【关键修复】右下角位置与颜值提升 --- */
+        /* --- 计时器位置与样式优化 --- */
         #clock-box {
             position: absolute;
             bottom: 15px;
-            right: 5px; /* 极度靠右，利用空隙 */
-            text-align: right; /* 强制右对齐 */
+            right: 20px; /* 保持在右侧留白处，不挡树 */
+            text-align: right;
+            color: #666;
             z-index: 999;
-            
-            /* 颜值提升：改成白色文字，加粉色发光描边，确保清晰又好看 */
-            color: #ffffff; 
-            text-shadow: 0 0 5px rgba(255, 105, 180, 0.8); 
-            
-            /* 强制使用志莽行书 */
-            font-family: "Zhi Mang Xing", cursive !important;
+            /* 确保计时器也用微软雅黑 */
+            font-family: "Microsoft YaHei", sans-serif;
         }
         
-        /* 强制内部所有元素继承字体和颜色设置 */
-        #clock-box * {
-            font-family: "Zhi Mang Xing", cursive !important;
-            color: inherit; /* 继承父级的白色 */
-            text-shadow: inherit; /* 继承描边 */
-        }
-
+        /* 【关键修改】统一字号 */
+        /* 第一行文字 */
         #clock-box span.label {
-            font-size: 20px;
+            font-size: 20px; /* 设定为 20px */
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px; /* 稍微增加一点行间距 */
         }
-        
+        /* 第二行时间数字 */
         #clock .digit {
-            font-size: 32px;
+            font-size: 20px; /* 也设定为 20px，实现大小统一 */
+            font-weight: bold; /* 数字加粗一点点更好看 */
         }
 
         /* 滚动条美化 */
@@ -213,8 +203,7 @@
     <script>
         (function () {
             
-            // --- 【打字机终极优化版】 ---
-            // 包含：丝滑无卡顿开头、智能停顿、稳定滚动
+            // --- 【JS核心逻辑】 ---
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
@@ -224,32 +213,24 @@
                     function type() {
                         var current = str.substr(progress, 1);
                         
-                        // 1. 跳过标签
+                        // 1. 遇到标签：瞬间跳过
                         if (current == '<') {
-                            // 检测情感停顿标记
                             if (str.substr(progress, 12) === '') {
                                 progress += 12; 
-                                setTimeout(type, 3000); // 停顿3秒
+                                setTimeout(type, 3000); 
                                 return;
                             }
-
-                            // 快速跳过普通HTML标签
                             var closeIndex = str.indexOf('>', progress);
                             progress = closeIndex + 1;
                             $ele.html(str.substring(0, progress));
-                            
-                            // 递归：不等待，立即处理下一个字符
-                            type();
+                            type(); 
                             return; 
                         } 
-                        // 2. 【关键】跳过开头的不可见字符（空格、换行）
-                        // 使用 while 循环一次性跳过连续的空白，不进行任何渲染
-                        // 这彻底解决了开头的卡顿问题，实现秒开
+                        // 2. 遇到空格或换行：瞬间跳过
                         else if (current === '\n' || current === ' ') {
                             while(progress < str.length && (str.substr(progress, 1) === '\n' || str.substr(progress, 1) === ' ')) {
                                 progress++;
                             }
-                            // 跳完所有空白后，立即处理下一个有效字符，不等待
                             if(progress < str.length) {
                                 type();
                             }
@@ -261,13 +242,13 @@
                             $ele.html(str.substring(0, progress));
                         }
 
-                        // 4. 稳定滚动逻辑
+                        // 4. 滚动逻辑
                         if (codeDiv) {
                             codeDiv.scrollTop = codeDiv.scrollHeight;
                         }
 
                         if (progress < str.length) {
-                            setTimeout(type, 225); // 正常打字速度
+                            setTimeout(type, 225); 
                         }
                     }
                     
@@ -275,7 +256,6 @@
                 });
                 return this;
             };
-            // -----------------------------
 
             var canvas = $('#canvas');
             if (!canvas[0].getContext) {
