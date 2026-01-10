@@ -9,6 +9,8 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    
     <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
 
     <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
@@ -26,9 +28,9 @@
     <style>
         /* --- CSS 样式调整区域 --- */
         
-        /* 全局字体：志莽行书 */
+        /* 全局默认字体：优先使用优雅的 Dancing Script */
         body, div, span, p {
-            font-family: "Zhi Mang Xing", "KaiTi", "STKaiti", "Microsoft YaHei", serif;
+            font-family: "Dancing Script", "KaiTi", "STKaiti", "Microsoft YaHei", serif;
         }
 
         p {
@@ -36,27 +38,28 @@
         }
 
         #code {
-            /* 字体大小：24px，行书需要大一点才看得清细节 */
+            /* 字体大小调整为 24px，确保清晰易读 */
             font-size: 24px; 
             line-height: 1.8; 
             display: none;
             color: #333;
+            font-weight: 500; /* 稍微加粗一点点，更有质感 */
             
             /* 布局限制 */
             width: 460px;
-            height: 540px; /* 稍微加高一点 */
-            overflow-y: auto; /* 开启滚动 */
+            height: 540px;
+            overflow-y: auto;
             padding-right: 15px;
             margin-top: 10px;
             
-            /* 【关键修复】禁止 CSS 平滑滚动，防止与 JS 冲突导致“反复横跳” */
+            /* 禁止 CSS 平滑滚动，交由 JS 控制以保证丝滑 */
             scroll-behavior: auto !important;
         }
 
         /* 段落排版 */
         #code p {
             text-indent: 2em;
-            margin-bottom: 1.2em; /* 段落间距 */
+            margin-bottom: 1.2em;
         }
         
         /* 标题和日期 */
@@ -80,26 +83,28 @@
             font-size: 1.1em;
         }
 
-        /* --- 计时器位置：右下角 (修正版) --- */
+        /* --- 计时器位置与特定字体 --- */
         #clock-box {
             position: absolute;
             bottom: 15px;
-            right: 20px;  /* 紧贴右侧边缘，避开中间的树 */
-            font-size: 16px;
-            text-align: right; /* 文字右对齐 */
+            right: 20px;
+            text-align: right;
             color: #666;
             z-index: 999;
+            /* 【关键】强制计时器区域使用你喜欢的“志莽行书” */
+            font-family: "Zhi Mang Xing", cursive !important;
         }
+        
         /* “我与你相识的” 文字大小 */
         #clock-box span.label {
-            font-size: 18px;
-            display: block; /* 独占一行 */
+            font-size: 20px;
+            display: block;
             margin-bottom: 5px;
         }
         /* 数字样式 */
         #clock .digit {
-            font-size: 26px;
-            font-family: "Zhi Mang Xing", cursive; 
+            font-size: 32px; /* 数字稍微大一点，更突出 */
+            /* 继承父级的志莽行书 */
         }
 
         /* --- 滚动条美化 --- */
@@ -131,22 +136,22 @@
                 <div id="code">
                     <p class="say_title">致 Ssunshine：</p>
                     
-                    <p class="say">今天是4月1日，一个适合说真话的日子。因为即便被当作玩笑，至少心意说出口了。</p>
-                    <p class="say">窗外春天已经很深了，我坐在桌前，想起马尔克斯在《霍乱时期的爱情》里写的那句话：“生活规律得仿佛生了锈一般，既让人轻蔑，又让人害怕，但同时也是一种保护，让他意识不到时间的流逝。”</p>
-                    <p class="say">直到你出现，像是在平静的湖面投下一颗石子，涟漪一圈圈荡开，再也回不到从前的平静。</p>
+                    <p class="say">今天是4月1日，一个适合说真话的日子。因为即便被当作玩笑，至少心意说出口了！</p>
+                    <p class="say">窗外的春天已经很深了，我坐在桌前，想起马尔克斯在《霍乱时期的爱情》里写的那句话：“生活规律得仿佛生了锈一般，既让人轻蔑，又让人害怕，但同时也是一种保护，让他意识不到时间的流逝。”</p>
+                    <p class="say">直到你的出现，像是在平静的湖面投下一颗石子，涟漪一圈圈荡开，再也回不到从前的平静。</p>
 
                     <p class="say">记得“不太想联系了”那次吗？那次名字的事，你觉得我不信任你。你说“不好意思我不喜欢这种感觉和不信任”，然后是那句——“不太想联系了”。</p>
-                    <p class="say">那天之后，你的朋友圈置顶了“顺利”两个字。我看到的时候愣住了，盯着那两个字看了很久。我不知道那是不是给我看的，但那一刻心里突然慌了。原来在意一个人，是会怕失去的，哪怕我们之间还没有真正开始。后来我才知道，那应该是给我看的。</p>
+                    <p class="say">自从那天之后，你的朋友圈置顶了“顺利”两个字。我看到的时候愣住了，盯着那两个字看了很久。我不知道那是不是给我看的，但那一刻心里突然慌了。原来在意一个人，是会怕失去的，哪怕我们之间还没有真正开始。后来我猜测，那应该是给我看的。</p>
                     <p class="say">那几天手机放在手边，屏幕每次亮起都会下意识看一眼。夜里躺在床上会想，是不是真的就这样结束了？我们之间的故事，会不会就停在那个“顺利”上？</p>
 
-                    <p class="say">博尔赫斯问：“我用什么才能留住你？”那时候我才明白这句话的重量。</p>
-                    <p class="say">尽管我们从未见过面。隔着屏幕，隔着不知道多少公里的距离，甚至不知道彼此真实的样子。但就是这样，你的每一句话我都记得。</p>
-                    <p class="say">你开导我的时候，那些温柔的字句像光一样照进来。你不会说教，不会敷衍，就是认真地听、认真地回应。每次和你聊完，心里那些乱七八糟的情绪都会慢慢沉淀下来。</p>
+                    <p class="say">博尔赫斯问：“我用什么才能留住你？”直到那时候我才明白这句话的重量。</p>
+                    <p class="say">尽管我们从未见过面。隔着屏幕，隔着不知道多少公里的距离，甚至不知道彼此真实的样子。但就是这样，你说的每一句话我都记得。</p>
+                    <p class="say">曾记得你开导我的时候，那些温柔的字句像光一样照进来温暖人心。你不会说教，不会敷衍，就是认真地听、认真地回应。每次和你聊完，心里那些乱七八糟的情绪都会慢慢沉淀下来。</p>
                     <p class="say">我总说你的名字里有阳光，其实不只是名字。你说话的语气、你对待事情的态度、你给人的感觉，都像春天的阳光——不刺眼，但很温暖，能让人想靠近。</p>
 
                     <p class="say">记得你分享过一首歌给我，《这世界那么多人》。你说你最喜欢那句“这世界有那么个人活在我飞扬的青春”。我听了很多遍，每次听到这句都会想：</p>
                     
-                    <p class="say"><span class="highlight">如果我也能成为活在你青春里的那个人，该有多好。</span></p>
+                    <p class="say"><span class="highlight">如果我也能成为活在你青春里的那个人，那该有多好呀。</span></p>
 
                     <p class="say">这世界那么多人，而我遇见了你。就像小王子对狐狸说的：“正是你为你的玫瑰花费的时光，使你的玫瑰变得如此重要。”</p>
                     <p class="say">我和你的每一次对话，每一个为你心动的瞬间，都让你在我心里变得无可替代。你就像那朵玫瑰，在千千万万朵玫瑰中，因为我为你花费的时光，而变得独一无二。</p>
@@ -204,8 +209,7 @@
     <script>
         (function () {
             
-            // --- 【终极优化版打字机函数】 ---
-            // 包含：HTML解析、丝滑滚动、情感停顿
+            // --- 【打字机函数】 ---
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
@@ -216,18 +220,15 @@
                     function type() {
                         var current = str.substr(progress, 1);
                         
-                        // 1. HTML标签快速通过逻辑
                         if (current == '<') {
                             var closeIndex = str.indexOf('>', progress);
                             var tag = str.substring(progress, closeIndex + 1);
                             progress = closeIndex + 1;
-                            // 立即渲染标签，保持结构
                             $ele.html(str.substring(0, progress));
                             
                             // 【情感停顿】检测到重点句子的结束标签 </span>
                             if (tag === '</span>') {
-                                // 强制暂停 3 秒
-                                setTimeout(type, 3000);
+                                setTimeout(type, 3000); // 暂停 3 秒
                                 return;
                             }
                         } else {
@@ -235,20 +236,17 @@
                             $ele.html(str.substring(0, progress));
                         }
 
-                        // 2. 丝滑滚动逻辑
-                        // CSS中已经禁用了smooth，这里直接跳到底部，不会有动画冲突
+                        // 丝滑滚动逻辑
                         if (codeDiv) {
                             codeDiv.scrollTop = codeDiv.scrollHeight;
                         }
 
-                        // 3. 循环与速度控制
                         if (progress < str.length) {
-                            // 基础速度 225ms (慢而深情)
-                            setTimeout(type, 225); 
+                            setTimeout(type, 225); // 打字速度 225ms
                         }
                     }
                     
-                    type(); // 启动
+                    type();
                 });
                 return this;
             };
