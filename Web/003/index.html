@@ -27,7 +27,6 @@
         /* --- CSS 样式调整区域 --- */
         
         /* 1. 全局主字体：华文行楷 (STXingkai) */
-        /* 使用英文名和中文名双重保障，并设置回退字体 */
         body, div, span, p {
             font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", cursive, serif;
         }
@@ -37,33 +36,28 @@
         }
 
         #code {
-            /* 字体大小调整为 24px，行书需要大一点才好看清晰 */
             font-size: 24px; 
             line-height: 1.8; 
             display: none;
             color: #333;
             
-            /* 布局限制 */
-            width: 480px; /* 稍微加宽一点点以适应行书 */
+            width: 480px;
             height: 540px;
             overflow-y: auto;
             padding-right: 15px;
             margin-top: 10px;
             
-            /* 禁止 CSS 平滑滚动，交由 JS 控制保持丝滑 */
             scroll-behavior: auto !important;
         }
 
-        /* 段落排版 */
         #code p {
             text-indent: 2em;
             margin-bottom: 1.2em;
         }
         
-        /* 标题和日期 */
         #code p.say_title {
             text-indent: 0;
-            font-size: 28px; /* 标题更大 */
+            font-size: 28px; 
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -74,40 +68,36 @@
             font-size: 24px;
         }
 
-        /* 重点强调样式 */
         .highlight {
             color: #ff0000; 
             font-weight: bold; 
             font-size: 1.1em;
         }
 
-        /* --- 计时器位置与特定字体 --- */
+        /* --- 【关键修改】计时器位置下移 --- */
         #clock-box {
             position: absolute;
-            bottom: 15px;
-            right: 20px; /* 保持在右侧留白处，不挡树 */
+            /* 将底部距离从 15px 改为 2px，让它紧贴最底边，避开树干 */
+            bottom: 2px; 
+            right: 20px;
             text-align: right;
             color: #666;
             z-index: 999;
-            /* 【关键】强制计时器区域使用“志莽行书”网络字体 */
+            /* 强制使用“志莽行书” */
             font-family: "Zhi Mang Xing", cursive !important;
         }
         
-        /* 强制覆盖内部元素的字体，确保万无一失 */
         #clock-box * {
             font-family: "Zhi Mang Xing", cursive !important;
         }
 
-        /* 第一行文字 */
         #clock-box span.label {
-            font-size: 24px; /* 统一调整为 24px */
+            font-size: 24px;
             display: block;
             margin-bottom: 8px;
         }
-        /* 第二行时间数字 */
         #clock .digit {
-            font-size: 24px; /* 统一调整为 24px */
-            /* 志莽行书自带粗体效果，不需要额外 bold */
+            font-size: 24px;
         }
 
         /* 滚动条美化 */
