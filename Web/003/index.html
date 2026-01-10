@@ -22,9 +22,9 @@
     <style>
         /* --- CSS 样式调整区域 --- */
         
-        /* 1. 全局字体：回归 微软雅黑 */
+        /* 1. 全局字体：统一使用 微软雅黑 */
         body, div, span, p {
-            font-family: "Microsoft YaHei", "Heiti SC", "SimHei", sans-serif;
+            font-family: "Microsoft YaHei", "Heiti SC", "SimHei", sans-serif !important;
         }
 
         p {
@@ -32,7 +32,6 @@
         }
 
         #code {
-            /* 字体大小：20px，微软雅黑这个大小阅读很舒服 */
             font-size: 20px; 
             line-height: 1.8; 
             display: none;
@@ -80,25 +79,29 @@
         #clock-box {
             position: absolute;
             bottom: 15px;
-            right: 20px; /* 保持在右侧留白处，不挡树 */
+            right: 20px; /* 保持在右侧留白处 */
             text-align: right;
             color: #666;
             z-index: 999;
-            /* 确保计时器也用微软雅黑 */
-            font-family: "Microsoft YaHei", sans-serif;
+            /* 强制计时器也用微软雅黑 */
+            font-family: "Microsoft YaHei", sans-serif !important;
         }
         
-        /* 【关键修改】统一字号 */
+        /* 强制覆盖内部元素的字体 */
+        #clock-box * {
+            font-family: "Microsoft YaHei", sans-serif !important;
+        }
+
         /* 第一行文字 */
         #clock-box span.label {
-            font-size: 20px; /* 设定为 20px */
+            font-size: 20px; /* 统一为 20px */
             display: block;
-            margin-bottom: 8px; /* 稍微增加一点行间距 */
+            margin-bottom: 8px;
         }
         /* 第二行时间数字 */
         #clock .digit {
-            font-size: 20px; /* 也设定为 20px，实现大小统一 */
-            font-weight: bold; /* 数字加粗一点点更好看 */
+            font-size: 20px; /* 统一为 20px */
+            font-weight: bold; 
         }
 
         /* 滚动条美化 */
@@ -203,7 +206,7 @@
     <script>
         (function () {
             
-            // --- 【JS核心逻辑】 ---
+            // --- 【JS核心逻辑：流畅打字】 ---
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
