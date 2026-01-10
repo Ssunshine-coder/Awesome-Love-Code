@@ -72,8 +72,8 @@
         /* 【优化】计时器位置 - 紧贴右下角 */
         #clock-box {
             position: fixed;  
-            bottom: 3px;      /* 紧贴底部 */
-            right: 5px;       /* 紧贴右边 */
+            bottom: 0px;      /* 完全贴底 */
+            right: 0px;       /* 完全贴右 */
             text-align: right;
             color: #666;
             z-index: 9999;    
@@ -81,8 +81,8 @@
             width: auto;
             pointer-events: none;
             background: rgba(255, 255, 255, 0.85); 
-            padding: 8px 15px;
-            border-radius: 10px;
+            padding: 6px 12px;
+            border-radius: 8px 0 0 0; /* 只保留左上角圆角 */
             box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
         }
         
@@ -92,7 +92,7 @@
 
         /* 【优化】两行字统一大小 */
         #clock-box span.label {
-            font-size: 22px;  /* 统一字号 */
+            font-size: 22px;  /* 第一行字体 */
             display: block;
             margin-bottom: 3px;
             opacity: 0.85;
@@ -100,7 +100,7 @@
         }
         
         #clock .digit {
-            font-size: 22px;  /* 与上面统一 */
+            font-size: 20px;  /* 第二行稍小 */
             font-weight: 500;
         }
 
