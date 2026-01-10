@@ -26,7 +26,8 @@
     <style>
         /* --- CSS 样式调整区域 --- */
         
-        /* 1. 全局主字体：华文行楷 (STXingkai) */
+        /* 1. 正文主字体：华文行楷 (STXingkai) */
+        /* 电脑通常自带，如果没带则回退到楷体 */
         body, div, span, p {
             font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", cursive, serif;
         }
@@ -36,17 +37,20 @@
         }
 
         #code {
+            /* 正文字体大小：24px (行书大一点才好看) */
             font-size: 24px; 
             line-height: 1.8; 
             display: none;
             color: #333;
             
+            /* 布局限制 */
             width: 480px;
             height: 540px;
             overflow-y: auto;
             padding-right: 15px;
             margin-top: 10px;
             
+            /* 禁止 CSS 平滑滚动，交由 JS 控制 */
             scroll-behavior: auto !important;
         }
 
@@ -57,7 +61,7 @@
         
         #code p.say_title {
             text-indent: 0;
-            font-size: 28px; 
+            font-size: 30px; /* 标题再大一点 */
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -68,36 +72,41 @@
             font-size: 24px;
         }
 
+        /* 重点强调样式 */
         .highlight {
             color: #ff0000; 
             font-weight: bold; 
             font-size: 1.1em;
         }
 
-        /* --- 【关键修改】计时器位置下移 --- */
+        /* --- 【关键修复】右下角计时器 --- */
         #clock-box {
             position: absolute;
-            /* 将底部距离从 15px 改为 2px，让它紧贴最底边，避开树干 */
-            bottom: 2px; 
-            right: 20px;
+            /* 2. 位置修复：沉到底部，靠右对齐 */
+            bottom: 10px; 
+            right: 10px; 
             text-align: right;
             color: #666;
             z-index: 999;
-            /* 强制使用“志莽行书” */
+            
+            /* 3. 字体强制：志莽行书 (Zhi Mang Xing) */
             font-family: "Zhi Mang Xing", cursive !important;
         }
         
+        /* 强制内部所有元素继承这个狂野字体 */
         #clock-box * {
             font-family: "Zhi Mang Xing", cursive !important;
         }
 
+        /* 第一行文字 */
         #clock-box span.label {
-            font-size: 24px;
+            font-size: 24px; 
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
+        /* 第二行时间数字 */
         #clock .digit {
-            font-size: 24px;
+            font-size: 24px; 
         }
 
         /* 滚动条美化 */
@@ -202,7 +211,7 @@
     <script>
         (function () {
             
-            // --- 【JS核心逻辑：保持丝滑】 ---
+            // --- 【JS核心逻辑：保持丝滑 + 情感停顿】 ---
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
