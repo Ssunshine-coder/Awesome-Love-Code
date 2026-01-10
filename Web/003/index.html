@@ -7,10 +7,6 @@
     <meta name="language" content="zh-CN">
     <meta name="title" content="小孙同学">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
-
     <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
     
     <script type="text/javascript" src="./Love_files/jquery.min.js"></script>
@@ -26,8 +22,8 @@
     <style>
         /* --- CSS 样式调整区域 --- */
         
-        /* 1. 正文主字体：华文行楷 (STXingkai) */
-        /* 电脑通常自带，如果没带则回退到楷体 */
+        /* 1. 全局统一字体：华文行楷 */
+        /* 移除了所有其他网络字体引用，确保全站统一 */
         body, div, span, p {
             font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", cursive, serif;
         }
@@ -37,7 +33,7 @@
         }
 
         #code {
-            /* 正文字体大小：24px (行书大一点才好看) */
+            /* 正文字体大小：24px */
             font-size: 24px; 
             line-height: 1.8; 
             display: none;
@@ -61,7 +57,7 @@
         
         #code p.say_title {
             text-indent: 0;
-            font-size: 30px; /* 标题再大一点 */
+            font-size: 30px;
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -79,23 +75,16 @@
             font-size: 1.1em;
         }
 
-        /* --- 【关键修复】右下角计时器 --- */
+        /* --- 【关键修改】计时器位置与字体 --- */
         #clock-box {
             position: absolute;
-            /* 2. 位置修复：沉到底部，靠右对齐 */
-            bottom: 10px; 
-            right: 10px; 
+            /* 【极致位置】紧贴右下角边缘 */
+            bottom: 5px; 
+            right: 5px; 
             text-align: right;
             color: #666;
             z-index: 999;
-            
-            /* 3. 字体强制：志莽行书 (Zhi Mang Xing) */
-            font-family: "Zhi Mang Xing", cursive !important;
-        }
-        
-        /* 强制内部所有元素继承这个狂野字体 */
-        #clock-box * {
-            font-family: "Zhi Mang Xing", cursive !important;
+            /* 字体自然继承全局的华文行楷，无需额外定义 */
         }
 
         /* 第一行文字 */
@@ -107,6 +96,7 @@
         /* 第二行时间数字 */
         #clock .digit {
             font-size: 24px; 
+            font-weight: bold;
         }
 
         /* 滚动条美化 */
