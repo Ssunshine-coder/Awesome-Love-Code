@@ -7,6 +7,10 @@
     <meta name="language" content="zh-CN">
     <meta name="title" content="小孙同学">
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+
     <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
     
     <script type="text/javascript" src="./Love_files/jquery.min.js"></script>
@@ -22,9 +26,10 @@
     <style>
         /* --- CSS 样式调整区域 --- */
         
-        /* 1. 全局字体：统一使用 微软雅黑 */
+        /* 1. 全局主字体：华文行楷 (STXingkai) */
+        /* 使用英文名和中文名双重保障，并设置回退字体 */
         body, div, span, p {
-            font-family: "Microsoft YaHei", "Heiti SC", "SimHei", sans-serif !important;
+            font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", cursive, serif;
         }
 
         p {
@@ -32,19 +37,20 @@
         }
 
         #code {
-            font-size: 20px; 
+            /* 字体大小调整为 24px，行书需要大一点才好看清晰 */
+            font-size: 24px; 
             line-height: 1.8; 
             display: none;
             color: #333;
             
             /* 布局限制 */
-            width: 460px;
+            width: 480px; /* 稍微加宽一点点以适应行书 */
             height: 540px;
             overflow-y: auto;
             padding-right: 15px;
             margin-top: 10px;
             
-            /* 禁止 CSS 平滑滚动，交由 JS 控制 */
+            /* 禁止 CSS 平滑滚动，交由 JS 控制保持丝滑 */
             scroll-behavior: auto !important;
         }
 
@@ -57,7 +63,7 @@
         /* 标题和日期 */
         #code p.say_title {
             text-indent: 0;
-            font-size: 24px; 
+            font-size: 28px; /* 标题更大 */
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -65,7 +71,7 @@
             text-indent: 0;
             text-align: right;
             margin-top: 30px;
-            font-size: 20px;
+            font-size: 24px;
         }
 
         /* 重点强调样式 */
@@ -75,33 +81,33 @@
             font-size: 1.1em;
         }
 
-        /* --- 计时器位置与样式优化 --- */
+        /* --- 计时器位置与特定字体 --- */
         #clock-box {
             position: absolute;
             bottom: 15px;
-            right: 20px; /* 保持在右侧留白处 */
+            right: 20px; /* 保持在右侧留白处，不挡树 */
             text-align: right;
             color: #666;
             z-index: 999;
-            /* 强制计时器也用微软雅黑 */
-            font-family: "Microsoft YaHei", sans-serif !important;
+            /* 【关键】强制计时器区域使用“志莽行书”网络字体 */
+            font-family: "Zhi Mang Xing", cursive !important;
         }
         
-        /* 强制覆盖内部元素的字体 */
+        /* 强制覆盖内部元素的字体，确保万无一失 */
         #clock-box * {
-            font-family: "Microsoft YaHei", sans-serif !important;
+            font-family: "Zhi Mang Xing", cursive !important;
         }
 
         /* 第一行文字 */
         #clock-box span.label {
-            font-size: 20px; /* 统一为 20px */
+            font-size: 24px; /* 统一调整为 24px */
             display: block;
             margin-bottom: 8px;
         }
         /* 第二行时间数字 */
         #clock .digit {
-            font-size: 20px; /* 统一为 20px */
-            font-weight: bold; 
+            font-size: 24px; /* 统一调整为 24px */
+            /* 志莽行书自带粗体效果，不需要额外 bold */
         }
 
         /* 滚动条美化 */
@@ -206,7 +212,7 @@
     <script>
         (function () {
             
-            // --- 【JS核心逻辑：流畅打字】 ---
+            // --- 【JS核心逻辑：保持丝滑】 ---
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
@@ -216,7 +222,7 @@
                     function type() {
                         var current = str.substr(progress, 1);
                         
-                        // 1. 遇到标签：瞬间跳过
+                        // 1. 遇到标签或停顿标记
                         if (current == '<') {
                             if (str.substr(progress, 12) === '') {
                                 progress += 12; 
