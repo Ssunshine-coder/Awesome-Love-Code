@@ -20,7 +20,7 @@
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
 
     <style>
-        /* --- CSS 样式调整区域 --- */
+        /* --- CSS 样式调整 --- */
         
         /* 1. 全局字体：统一使用 华文行楷 */
         body, div, span, p {
@@ -32,20 +32,18 @@
         }
 
         #code {
-            /* 正文字体大小：24px */
+            /* 正文保持 24px，中间空间大，不需要缩小 */
             font-size: 24px; 
             line-height: 1.8; 
             display: none;
             color: #333;
             
-            /* 布局限制 */
             width: 480px;
             height: 540px;
             overflow-y: auto;
             padding-right: 15px;
             margin-top: 10px;
             
-            /* 禁止 CSS 平滑滚动，交由 JS 控制 */
             scroll-behavior: auto !important;
         }
 
@@ -67,35 +65,34 @@
             font-size: 24px;
         }
 
-        /* 重点强调样式 */
         .highlight {
             color: #ff0000; 
             font-weight: bold; 
             font-size: 1.1em;
         }
 
-        /* --- 计时器位置与样式 (完全采用你提供的参考代码设定) --- */
+        /* --- 计时器位置与样式优化 (18px 加粗版) --- */
         #clock-box {
             position: absolute;
-            bottom: 5px; 
-            right: 5px; 
+            bottom: 10px; 
+            right: 10px; 
             text-align: right;
             color: #666;
             z-index: 999;
-            /* 确保字体继承华文行楷 */
-            font-family: "STXingkai", "华文行楷", cursive !important;
         }
-
-        /* 【关键】统一字号为 24px 并加粗 (参考代码设置) */
+        
+        /* 第一行文字 */
         #clock-box span.label {
-            font-size: 24px; 
-            font-weight: bold;
+            font-size: 18px; /* 缩小到 18px */
+            font-weight: bold; /* 加粗 */
             display: block;
             margin-bottom: 5px;
         }
+        
+        /* 第二行时间数字 */
         #clock .digit {
-            font-size: 24px; 
-            font-weight: bold;
+            font-size: 18px; /* 缩小到 18px */
+            font-weight: bold; /* 加粗 */
         }
 
         /* 滚动条美化 */
@@ -142,7 +139,7 @@
 
                     <p class="say">记得你分享过一首歌给我，《这世界那么多人》。你说你最喜欢那句“这世界有那么个人活在我飞扬的青春”。我听了很多遍，每次听到这句都会想：</p>
                     
-                    <p class="say"><span class="highlight">如果我也能成为活在你青春里的那个人，那该有多好呀！</span></p>
+                    <p class="say"><span class="highlight">如果我也能成为活在你青春里的那个人，那该有多好！</span></p>
 
                     <p class="say">这世界那么多人，而我遇见了你。就像小王子对狐狸说的：“正是你为你的玫瑰花费的时光，使你的玫瑰变得如此重要。”</p>
                     <p class="say">我和你的每一次对话，每一个为你心动的瞬间，都让你在我心里变得无可替代。你就像那朵玫瑰，在千千万万朵玫瑰中，因为我为你花费的时光，而变得独一无二。</p>
@@ -221,7 +218,7 @@
                                 $ele.html($ele.html() + tag); 
                                 progress = closeIndex + 1;
                                 
-                                // 【关键】在这里停顿3秒，然后再继续打印文字
+                                // 【关键】停顿 3 秒
                                 setTimeout(type, 3000);
                                 return;
                             }
