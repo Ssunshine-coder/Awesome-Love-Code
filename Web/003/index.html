@@ -20,10 +20,9 @@
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
 
     <style>
-        /* --- CSS 样式调整区域 --- */
+        /* --- CSS 样式调整 --- */
         
-        /* 1. 全局统一字体：华文行楷 */
-        /* 移除了所有其他网络字体引用，确保全站统一 */
+        /* 1. 全局字体：华文行楷 (STXingkai) */
         body, div, span, p {
             font-family: "STXingkai", "华文行楷", "KaiTi", "楷体", cursive, serif;
         }
@@ -33,20 +32,17 @@
         }
 
         #code {
-            /* 正文字体大小：24px */
             font-size: 24px; 
             line-height: 1.8; 
             display: none;
             color: #333;
             
-            /* 布局限制 */
             width: 480px;
             height: 540px;
             overflow-y: auto;
             padding-right: 15px;
             margin-top: 10px;
             
-            /* 禁止 CSS 平滑滚动，交由 JS 控制 */
             scroll-behavior: auto !important;
         }
 
@@ -68,35 +64,33 @@
             font-size: 24px;
         }
 
-        /* 重点强调样式 */
         .highlight {
             color: #ff0000; 
             font-weight: bold; 
             font-size: 1.1em;
         }
 
-        /* --- 【关键修改】计时器位置与字体 --- */
+        /* --- 计时器位置 (复刻你的正确代码) --- */
         #clock-box {
             position: absolute;
-            /* 【极致位置】紧贴右下角边缘 */
-            bottom: 5px; 
-            right: 5px; 
+            bottom: 15px; /* 保持和你参考代码一致的 15px */
+            right: 20px;
+            font-size: 16px;
             text-align: right;
             color: #666;
             z-index: 999;
-            /* 字体自然继承全局的华文行楷，无需额外定义 */
         }
 
         /* 第一行文字 */
         #clock-box span.label {
             font-size: 24px; 
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         /* 第二行时间数字 */
         #clock .digit {
             font-size: 24px; 
-            font-weight: bold;
+            /* 华文行楷自带笔锋，不需要额外 bold */
         }
 
         /* 滚动条美化 */
