@@ -5,6 +5,7 @@
     <title>一封情书</title>
     <link rel="icon" type="image/x-icon" href="https://i.loli.net/2021/06/03/lFg2V4WUcmkB98G.png">
     <meta name="language" content="zh-CN">
+    <meta name="title" content="小孙同学">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,47 +63,47 @@
             font-size: 24px;
         }
 
-        /* 红色加粗字体样式 */
         .highlight {
             color: #ff0000; 
             font-weight: bold; 
             font-size: 1.1em;
         }
 
-        /* --- 计时器：右下角固定，不遮挡优化版 --- */
+        /* 【优化】计时器位置 - 紧贴右下角 */
         #clock-box {
             position: fixed;  
-            bottom: 10px;     /* 留出一点呼吸空间，不贴死边缘 */
-            right: 10px;      /* 靠右 */
+            bottom: 0px;      /* 完全贴底 */
+            right: 0px;       /* 完全贴右 */
             text-align: right;
             color: #666;
             z-index: 9999;    
             font-family: "Zhi Mang Xing", cursive !important;
             width: auto;
-            pointer-events: none; /* 鼠标穿透，不阻挡点击 */
-            background: rgba(255, 255, 255, 0.9); /* 背景稍微调高不透明度，保证文字清晰 */
-            padding: 10px 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.05); 
+            pointer-events: none;
+            background: rgba(255, 255, 255, 0.85); 
+            padding: 6px 12px;
+            border-radius: 8px 0 0 0; /* 只保留左上角圆角 */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
         }
         
         #clock-box * {
             font-family: "Zhi Mang Xing", cursive !important;
         }
 
+        /* 【优化】两行字统一大小 */
         #clock-box span.label {
-            font-size: 22px; 
+            font-size: 22px;  /* 第一行字体 */
             display: block;
-            margin-bottom: 5px;
-            opacity: 0.9;
+            margin-bottom: 3px;
+            opacity: 0.85;
+            font-weight: 500;
         }
         
         #clock .digit {
-            font-size: 22px;  /* 调整为统一大小，视觉更平衡 */
+            font-size: 20px;  /* 第二行稍小 */
             font-weight: 500;
         }
 
-        /* 滚动条美化 */
         #code::-webkit-scrollbar {
             width: 6px; 
         }
@@ -146,7 +147,7 @@
 
                     <p class="say">记得你分享过一首歌给我,《这世界那么多人》。你说你最喜欢那句"这世界有那么个人活在我飞扬的青春"。我听了很多遍,每次听到这句都会想:</p>
                     
-                    <p class="say"><span class="highlight">如果我也能成为活在你青春里的那个人,那该有多好呀!</span></p>
+                    <!--PAUSE--><p class="say"><span class="highlight">如果我也能成为活在你青春里的那个人,那该有多好呀!</span></p>
 
                     <p class="say">这世界那么多人,而我遇见了你。就像小王子对狐狸说的:"正是你为你的玫瑰花费的时光,使你的玫瑰变得如此重要。"</p>
                     <p class="say">我和你的每一次对话,每一个为你心动的瞬间,都让你在我心里变得无可替代。你就像那朵玫瑰,在千千万万朵玫瑰中,因为我为你花费的时光,而变得独一无二。</p>
@@ -155,7 +156,7 @@
                     <p class="say">每次听到你的歌声都会想,如果真的能在某个有风的地方遇见你,会是什么样子?我想让这份看不见的感情,变成看得见的陪伴。想当面听你唱歌,想在以后的每一个日子里,都能听到你的歌声。</p>
                     <p class="say">我不是一个很主动的人,但在和你相处的过程中,我发现自己总是忍不住主动找你。想跟你说话,想跟你谈天说地,想和你分享生活里的点点滴滴。看到有趣的事会想告诉你,心情不好时会想找你倾诉,甚至只是想知道你今天过得怎么样。</p>
                     
-                    <p class="say"><span class="highlight">原来喜欢一个人,是会让人变得主动的!</span></p>
+                    <!--PAUSE--><p class="say"><span class="highlight">原来喜欢一个人,是会让人变得主动的!</span></p>
 
                     <p class="say">就像《玻璃心》里唱的那样,脆弱的心怕疼怕受伤害。我也曾害怕,害怕主动会换来失望,害怕表露真心会变得脆弱。村上春树说,哪里会有人喜欢孤独,不过是不喜欢失望罢了。</p>
                     <p class="say">可后来发现,有些感情不是可以一直藏着的。它会在某个瞬间溢出来,提醒我不能再自欺欺人。我厌倦了那种若即若离的状态,厌倦了把千言万语都克制在嘴边的感觉。与其在猜测中摇摆,我更想用一种确定的方式,把这份心意永远定格。</p>
@@ -163,7 +164,7 @@
                     <p class="say">这让我想起笛卡尔临终前画下的那条心形曲线 r=a(1-sinθ)。那是他用数学写下的最后情书,每一个坐标点都在诉说"我的心永远朝向你"。那条曲线证明了,有些原本无解的爱意,一旦找到了表达的公式,就可以穿越生死,被永远铭记。</p>
                     <p class="say">但仅有瞬间的铭记是不够的,还需要漫长的时光来铺垫。就像马孔多那场下了四年十一个月零两天的雨,马尔克斯说,生命中所有的灿烂都要用寂寞偿还。我想告诉你的是:如果这份寂寞能换来遇见你,那么,雨即使下得再久一点,也值得。</p>
 
-                    <p class="say"><span class="highlight">所以今天,我想告诉你:我喜欢你!</span></p>
+                    <!--PAUSE--><p class="say"><span class="highlight">所以今天,我想告诉你:我喜欢你!</span></p>
                     
                     <p class="say">不是那种"聊得来"的喜欢,是真的喜欢。是看到你的消息会不自觉地笑,是想知道你在做什么、过得好不好,是想在你难过的时候陪着你,是想把那些一直没说出口的话说给你听。</p>
                     <p class="say">是想见你。想知道你真实的样子,想当面听你唱歌,想陪你去看星星,想和你一起看春花、赏夏荷、踏秋枫、等冬雪。想在这世界那么多人里,成为活在你青春里的那个人。</p>
@@ -174,7 +175,7 @@
 
                     <p class="say">我知道这听起来有点不现实。我们隔得很远,也许你从来没有想过我们之间会是这样的关系。但泰戈尔说:"世界上最遥远的距离,不是生与死,而是我站在你面前,你却不知道我爱你。"</p>
                     
-                    <p class="say"><span class="highlight">我不想让这句话成为我们的结局!</span></p>
+                    <!--PAUSE--><p class="say"><span class="highlight">我不想让这句话成为我们的结局!</span></p>
 
                     <p class="say">Ssunshine,我不会说那些"一定会如何如何"的话,因为未来谁都说不准。我只能告诉你此刻我的感受——我想和你试试看。想继续主动地关心你,想让你知道你对我来说很重要,想让我们之间有一个明确的关系。</p>
                     <p class="say">如果你愿意,我想从朋友变成更亲密的人。想有资格在你难过时给你拥抱,想有理由在每个早晨和你说早安,想有机会走进你的生活,也让你走进我的。想一直听你唱歌,想成为你愿意为之歌唱的那个人。</p>
@@ -183,7 +184,7 @@
                     <p class="say">今天是愚人节,但加缪说:"不要走在我后面,因为我可能不会引路;不要走在我前面,因为我可能不会跟随;请走在我身边,做我的朋友。"</p>
                     <p class="say">而我想说:</p>
                     
-                    <p class="say"><span class="highlight">请走在我身边,让我画出那条属于我们的心形曲线!</span></p>
+                    <!--PAUSE--><p class="say"><span class="highlight">请走在我身边,让我画出那条属于我们的心形曲线!</span></p>
 
                     <p class="say">这不是玩笑,是我最认真的心意!</p>
                     
@@ -204,7 +205,7 @@
     <script>
         (function () {
             
-            // --- 【打字机逻辑：包含停顿与标签跳过】 ---
+            // --- 【优化后的打字机效果 + 停顿功能】 ---
             $.fn.typewriter = function() {
                 this.each(function() {
                     var $ele = $(this), str = $ele.html(), progress = 0;
@@ -212,48 +213,46 @@
                     var codeDiv = document.getElementById('code');
 
                     function type() {
-                        // 【检测停顿】 检查当前是否为 标记
-                        // 必须严格匹配注释格式
-                        if (str.substr(progress, 14) === '') {
-                            progress += 14; 
-                            setTimeout(type, 3000); // 停顿 3 秒
+                        // 【核心功能】检测到 <!--PAUSE--> 标记时停顿3秒
+                        if (str.substr(progress, 14) === '<!--PAUSE-->') {
+                            progress += 14; // 跳过注释标记
+                            setTimeout(type, 3000); // 停顿3秒后继续
                             return;
                         }
 
                         var current = str.substr(progress, 1);
                         
-                        // 1. HTML标签处理
+                        // 1. 遇到HTML标签,整个跳过
                         if (current == '<') {
                             var closeIndex = str.indexOf('>', progress);
-                            var tag = str.substring(progress, closeIndex + 1);
                             progress = closeIndex + 1;
                             $ele.html(str.substring(0, progress));
-                            // 递归调用以确保连续标签被快速渲染
                             type(); 
                             return; 
                         } 
-                        // 2. 跳过空格换行
+                        // 2. 遇到空格或换行:瞬间跳过
                         else if (current === '\n' || current === ' ') {
                             while(progress < str.length && (str.substr(progress, 1) === '\n' || str.substr(progress, 1) === ' ')) {
                                 progress++;
                             }
-                            if(progress < str.length) type();
+                            if(progress < str.length) {
+                                type();
+                            }
                             return;
                         }
-                        // 3. 正常打字
+                        // 3. 正常文字逐字显示
                         else {
                             progress++;
                             $ele.html(str.substring(0, progress));
                         }
 
-                        // 4. 滚动逻辑
+                        // 4. 自动滚动到底部
                         if (codeDiv) {
                             codeDiv.scrollTop = codeDiv.scrollHeight;
                         }
 
-                        // 循环
                         if (progress < str.length) {
-                            setTimeout(type, 225); 
+                            setTimeout(type, 225); // 每个字225ms
                         }
                     }
                     
@@ -275,9 +274,7 @@
 
             var opts = {
                 seed: {
-                    // 【关键修改】让树往左移80px (原为 width/2 - 20)
-                    // 这样可以彻底让出右下角区域给计时器
-                    x: width / 2 - 80, 
+                    x: width / 2 - 20,
                     color: "rgb(190, 26, 37)",
                     scale: 2
                 },
